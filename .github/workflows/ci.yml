@@ -2,8 +2,9 @@ name: Python Package
 
 on:
   push:
-    tags: [ '*' ]
-    branches: [ "main" ]
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
 
 jobs:
   build:
@@ -24,15 +25,3 @@ jobs:
     - name: Test with doctest
       run: |
         python -m doctest -v shinny_calendar/*
-
-    - name: Build package
-      run: |
-        pip install build
-        python -m build
-
-    - name: Publish to Pypi
-      if: startsWith(github.event.ref, 'refs/tags')
-      uses: pypa/gh-action-pypi-publish@master
-      with:
-        user: __token__
-        password: ${{ secrets.PYPI_PASSWORD }}
