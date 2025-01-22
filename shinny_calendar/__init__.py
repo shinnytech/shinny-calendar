@@ -68,8 +68,8 @@ class CalendarUtility:
 
         Args:
             dt: 输入的日期时间，默认为当前时间
-            change_trading_day_hour: 交易日切换小时，默认为初始化类时指定的值
-            change_trading_day_minute: 交易日切换分钟，默认为初始化类时指定的值
+            change_trading_day_hour: 交易日切换小时，若不填写，则默认为初始化类时指定的值
+            change_trading_day_minute: 交易日切换分钟，若不填写，则默认为初始化类时指定的值
 
         Returns:
             交易日的日期
@@ -89,8 +89,8 @@ class CalendarUtility:
         return _trading_day(
             dt or self.now(),
             self.holidays,
-            change_trading_day_hour or self.change_trading_day_hour,
-            change_trading_day_minute or self.change_trading_day_minute
+            change_trading_day_hour if change_trading_day_hour is not None else self.change_trading_day_hour,
+            change_trading_day_minute if change_trading_day_minute is not None else self.change_trading_day_minute
         )
 
     def today(self) -> datetime.date:
