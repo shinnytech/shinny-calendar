@@ -111,12 +111,18 @@ class CalendarUtility:
         """
         return datetime.datetime.now()
 
-    def accounting_day(self, dt: Optional[datetime.datetime] = None) -> datetime.date:
+    def accounting_day(
+            self, dt: Optional[datetime.datetime] = None,
+            change_trading_day_hour: Optional[int] = None,
+            change_trading_day_minute: Optional[int] = None
+    ) -> datetime.date:
         """
         获取指定日期的会计日。
 
         Args:
             dt: 输入的日期时间，默认为当前时间
+            change_trading_day_hour: 交易日切换小时，若不填写，则默认为初始化类时指定的值
+            change_trading_day_minute: 交易日切换分钟，若不填写，则默认为初始化类时指定的值
 
         Returns:
             会计日的日期
@@ -127,8 +133,16 @@ class CalendarUtility:
             datetime.date(2025, 1, 1)
             >>> calendar_utility.accounting_day(datetime.datetime(2025, 1, 2))
             datetime.date(2025, 1, 2)
+            >>> calendar_utility.accounting_day(datetime.datetime(2025, 1, 2, 18, 0), 20, 0)
+            datetime.date(2025, 1, 2)
+            >>> calendar_utility.accounting_day(datetime.datetime(2025, 1, 2, 18, 0), 16, 0)
+            datetime.date(2025, 1, 3)
         """
-        return _accounting_day(dt or self.now(), self.change_trading_day_hour, self.change_trading_day_minute)
+        return _accounting_day(
+            dt or self.now(),
+            change_trading_day_hour if change_trading_day_hour is not None else self.change_trading_day_hour,
+            change_trading_day_minute if change_trading_day_minute is not None else self.change_trading_day_minute
+        )
     
     def trading_day_end_time(self, dt: Optional[datetime.date] = None) -> datetime.datetime:
         """
