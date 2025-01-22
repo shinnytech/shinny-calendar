@@ -58,12 +58,18 @@ class CalendarUtility:
         self.change_trading_day_hour = change_trading_day_hour
         self.change_trading_day_minute = change_trading_day_minute
 
-    def trading_day(self, dt: Optional[datetime.datetime] = None) -> datetime.date:
+    def trading_day(
+            self, dt: Optional[datetime.datetime] = None,
+            change_trading_day_hour: Optional[int] = None,
+            change_trading_day_minute: Optional[int] = None
+    ) -> datetime.date:
         """
         获取指定日期的交易日。
 
         Args:
             dt: 输入的日期时间，默认为当前时间
+            change_trading_day_hour: 交易日切换小时，默认为初始化类时指定的值
+            change_trading_day_minute: 交易日切换分钟，默认为初始化类时指定的值
 
         Returns:
             交易日的日期
@@ -74,8 +80,18 @@ class CalendarUtility:
             datetime.date(2025, 1, 2)
             >>> calendar_utility.trading_day(datetime.datetime(2025, 1, 2))
             datetime.date(2025, 1, 2)
+            >>> calendar_utility.trading_day(datetime.datetime(2025, 1, 2, 18, 0), 20, 0)
+            datetime.date(2025, 1, 2)
+            >>> calendar_utility.trading_day(datetime.datetime(2025, 1, 2, 18, 0), 16, 0)
+            datetime.date(2025, 1, 3)
+
         """
-        return _trading_day(dt or self.now(), self.holidays, self.change_trading_day_hour, self.change_trading_day_minute)
+        return _trading_day(
+            dt or self.now(),
+            self.holidays,
+            change_trading_day_hour or self.change_trading_day_hour,
+            change_trading_day_minute or self.change_trading_day_minute
+        )
 
     def today(self) -> datetime.date:
         """
