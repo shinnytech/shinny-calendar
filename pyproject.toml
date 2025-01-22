@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "shinny-calendar"
-version = "0.1.0"
+version = "0.1.1"
 description = "获取期货交易日的工具，不依赖任何第三方库"
 readme = "README.md"
 requires-python = ">=3.8"
