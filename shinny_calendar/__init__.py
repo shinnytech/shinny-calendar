@@ -89,8 +89,8 @@ class CalendarUtility:
         return _trading_day(
             dt or self.now(),
             self.holidays,
-            change_trading_day_hour or self.change_trading_day_hour,
-            change_trading_day_minute or self.change_trading_day_minute
+            change_trading_day_hour if change_trading_day_hour is not None else self.change_trading_day_hour,
+            change_trading_day_minute if change_trading_day_minute is not None else self.change_trading_day_minute
         )
 
     def today(self) -> datetime.date:
