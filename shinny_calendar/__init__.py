@@ -42,7 +42,7 @@ class CalendarUtility:
     """
     def __init__(
         self, 
-        holidays: Optional[List[datetime.date]] = _DEFAULT_HOLIDAYS, 
+        holidays: Optional[List[datetime.date]] = None,
         change_trading_day_hour: int = DEFAULT_CHANGE_TRADING_DAY_HOUR, 
         change_trading_day_minute: int = DEFAULT_CHANGE_TRADING_DAY_MINUTE
     ):
@@ -54,7 +54,7 @@ class CalendarUtility:
             change_trading_day_hour: 交易日切换小时，默认为 20
             change_trading_day_minute: 交易日切换分钟，默认为 0 
         """
-        self.holidays = holidays
+        self.holidays = holidays if holidays is not None else _DEFAULT_HOLIDAYS
         self.change_trading_day_hour = change_trading_day_hour
         self.change_trading_day_minute = change_trading_day_minute
 
