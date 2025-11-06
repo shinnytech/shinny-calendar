@@ -4,7 +4,7 @@ Shinny Calendar - 判断交易日的 python 包.
 提供交易日、会计日期等日历相关实用工具。
 """
 
-__version__ = "0.1.2"
+__version__ = "1.0.2026"
 
 import datetime
 from typing import List, Optional
